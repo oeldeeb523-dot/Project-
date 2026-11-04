@@ -1,0 +1,10 @@
+[
+  {"id": "ar.alafasy", "name": "مشاري راشد العفاسي", "server": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/"},
+  {"id": "ar.abdulbasitmurattal", "name": "عبد الباسط عبد الصمد (مرتل)", "server": "https://cdn.islamic.network/quran/audio/128/ar.abdulbasitmurattal/"},
+  {"id": "ar.husary", "name": "محمود خليل الحصري", "server": "https://cdn.islamic.network/quran/audio/128/ar.husary/"},
+  {"id": "ar.minshawi", "name": "محمد صديق المنشاوي", "server": "https://cdn.islamic.network/quran/audio/128/ar.minshawi/"},
+  {"id": "ar.mahermuaiqly", "name": "ماهر المعيقلي", "server": "https://cdn.islamic.network/quran/audio/128/ar.mahermuaiqly/"},
+  {"id": "ar.saoodshuraym", "name": "سعود الشريم", "server": "https://cdn.islamic.network/quran/audio/128/ar.saoodshuraym/"},
+  {"id": "ar.abdullahbasfar", "name": "عبد الله بصفر", "server": "https://cdn.islamic.network/quran/audio/128/ar.abdullahbasfar/"},
+  {"id": "ar.muhammadayyoub", "name": "محمد أيوب", "server": "https://cdn.islamic.network/quran/audio/128/ar.muhammadayyoub/"}
+]

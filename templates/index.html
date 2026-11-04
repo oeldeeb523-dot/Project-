@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>نور الإسلام - تطبيقك الإسلامي الشامل</title>
+<link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="app-container">
+
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="شعار" class="logo">
+        <div class="brand-text">
+          <h1>نور الإسلام</h1>
+          <span id="hijri-date">جاري التحميل...</span>
+        </div>
+      </div>
+      <button class="notif-btn" id="enable-notif" title="تفعيل الإشعارات">
+        <i class="fa-solid fa-bell"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="content" id="content">
+
+    <!-- الصفحة الرئيسية -->
+    <section class="page active" id="page-home">
+      <div class="hero-card">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h2>بسم الله الرحمن الرحيم</h2>
+          <p id="greeting-text">السلام عليكم ورحمة الله وبركاته</p>
+          <div class="prayer-next" id="prayer-next">
+            <i class="fa-solid fa-mosque"></i>
+            <span>جاري حساب موعد الصلاة القادمة...</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <i class="fa-solid fa-book-open"></i>
+        <h3>درس اليوم</h3>
+      </div>
+      <div class="daily-card" id="daily-card">
+        <div class="daily-ayah">
+          <span class="badge">آية اليوم</span>
+          <p class="quran-text" id="daily-ayah-text"></p>
+          <span class="ref" id="daily-ayah-ref"></span>
+        </div>
+        <div class="divider"></div>
+        <div class="daily-hadith">
+          <span class="badge gold">حديث اليوم</span>
+          <p class="hadith-text" id="daily-hadith-text"></p>
+          <span class="ref" id="daily-hadith-ref"></span>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <i class="fa-solid fa-gauge-high"></i>
+        <h3>الوصول السريع</h3>
+      </div>
+      <div class="quick-grid">
+        <button class="quick-item" data-goto="quran">
+          <i class="fa-solid fa-quran"></i>
+          <span>القرآن الكريم</span>
+        </button>
+        <button class="quick-item" data-goto="reciters">
+          <i class="fa-solid fa-microphone-lines"></i>
+          <span>التلاوات المميزة</span>
+        </button>
+        <button class="quick-item" data-goto="hadith">
+          <i class="fa-solid fa-scroll"></i>
+          <span>الأحاديث النبوية</span>
+        </button>
+        <button class="quick-item" data-goto="adhkar">
+          <i class="fa-solid fa-hands-praying"></i>
+          <span>الأذكار</span>
+        </button>
+        <button class="quick-item" data-goto="prayer">
+          <i class="fa-solid fa-clock"></i>
+          <span>مواقيت الصلاة</span>
+        </button>
+        <button class="quick-item" data-goto="games">
+          <i class="fa-solid fa-puzzle-piece"></i>
+          <span>الألعاب والغاز</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- القرآن الكريم -->
+    <section class="page" id="page-quran">
+      <div class="section-title">
+        <i class="fa-solid fa-quran"></i>
+        <h3>القرآن الكريم</h3>
+      </div>
+      <div class="controls-row">
+        <select id="reciter-select" class="select-box">
+          <option>اختر القارئ...</option>
+        </select>
+      </div>
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="surah-search" placeholder="ابحث عن سورة...">
+      </div>
+      <div class="surah-grid" id="surah-grid"></div>
+
+      <div class="player-bar" id="player-bar">
+        <div class="player-info">
+          <span id="now-playing">لا يوجد تشغيل</span>
+        </div>
+        <div class="player-controls">
+          <button id="btn-prev"><i class="fa-solid fa-backward-step"></i></button>
+          <button id="btn-play" class="play-btn"><i class="fa-solid fa-play"></i></button>
+          <button id="btn-next"><i class="fa-solid fa-forward-step"></i></button>
+        </div>
+        <audio id="audio-player"></audio>
+      </div>
+    </section>
+
+    <!-- التلاوات المميزة -->
+    <section class="page" id="page-reciters">
+      <div class="section-title">
+        <i class="fa-solid fa-microphone-lines"></i>
+        <h3>عمالقة القراء والمشايخ</h3>
+      </div>
+      <div class="reciters-list" id="reciters-list"></div>
+      <div class="featured-section">
+        <h4 class="sub-title"><i class="fa-solid fa-star"></i> تلاوات مميزة</h4>
+        <div class="featured-list" id="featured-list"></div>
+      </div>
+    </section>
+
+    <!-- الأحاديث -->
+    <section class="page" id="page-hadith">
+      <div class="section-title">
+        <i class="fa-solid fa-scroll"></i>
+        <h3>الأحاديث النبوية الشريفة</h3>
+      </div>
+      <div class="book-tabs" id="book-tabs">
+        <button class="book-tab active" data-book="bukhari">البخاري</button>
+        <button class="book-tab" data-book="muslim">مسلم</button>
+        <button class="book-tab" data-book="tirmidhi">الترمذي</button>
+        <button class="book-tab" data-book="nasai">النسائي</button>
+        <button class="book-tab" data-book="ibnmajah">ابن ماجه</button>
+      </div>
+      <div class="hadith-list" id="hadith-list"></div>
+    </section>
+
+    <!-- الأذكار -->
+    <section class="page" id="page-adhkar">
+      <div class="section-title">
+        <i class="fa-solid fa-hands-praying"></i>
+        <h3>الأذكار والأدعية</h3>
+      </div>
+      <div class="adhkar-cats" id="adhkar-cats">
+        <button class="cat-btn active" data-cat="morning"><i class="fa-solid fa-sun"></i> أذكار الصباح</button>
+        <button class="cat-btn" data-cat="evening"><i class="fa-solid fa-moon"></i> أذكار المساء</button>
+        <button class="cat-btn" data-cat="wakeup"><i class="fa-solid fa-bed"></i> أذكار الاستيقاظ</button>
+        <button class="cat-btn" data-cat="sleep"><i class="fa-solid fa-moon-stars"></i> أذكار النوم</button>
+        <button class="cat-btn" data-cat="food"><i class="fa-solid fa-utensils"></i> أذكار الطعام</button>
+        <button class="cat-btn" data-cat="toilet"><i class="fa-solid fa-door-closed"></i> دخول الخلاء</button>
+      </div>
+      <div class="adhkar-progress">
+        <div class="progress-bar"><div class="progress-fill" id="adhkar-progress-fill"></div></div>
+        <span id="adhkar-progress-text">0 / 0</span>
+      </div>
+      <div class="adhkar-list" id="adhkar-list"></div>
+    </section>
+
+    <!-- مواقيت الصلاة والإشعارات -->
+    <section class="page" id="page-prayer">
+      <div class="section-title">
+        <i class="fa-solid fa-clock"></i>
+        <h3>مواقيت الصلاة والإشعارات</h3>
+      </div>
+      <div class="location-row">
+        <input type="text" id="city-input" placeholder="اسم مدينتك (مثال: القاهرة)" value="القاهرة">
+        <button id="btn-fetch-prayer" class="btn-primary"><i class="fa-solid fa-location-dot"></i> تحديد</button>
+      </div>
+      <div class="prayer-times" id="prayer-times"></div>
+
+      <h4 class="sub-title"><i class="fa-solid fa-bell"></i> إعدادات التذكير</h4>
+      <div class="reminder-list">
+        <label class="reminder-item">
+          <span><i class="fa-solid fa-sun"></i> تذكير أذكار الصباح (06:00)</span>
+          <input type="checkbox" class="reminder-toggle" data-reminder="morning" checked>
+        </label>
+        <label class="reminder-item">
+          <span><i class="fa-solid fa-moon"></i> تذكير أذكار المساء (18:00)</span>
+          <input type="checkbox" class="reminder-toggle" data-reminder="evening" checked>
+        </label>
+        <label class="reminder-item">
+          <span><i class="fa-solid fa-heart"></i> تذكير بالصلاة على النبي (كل ساعة)</span>
+          <input type="checkbox" class="reminder-toggle" data-reminder="salawat" checked>
+        </label>
+        <label class="reminder-item">
+          <span><i class="fa-solid fa-hand-holding-heart"></i> تذكير بذكر الله (كل ساعتين)</span>
+          <input type="checkbox" class="reminder-toggle" data-reminder="dhikr">
+        </label>
+        <label class="reminder-item">
+          <span><i class="fa-solid fa-mosque"></i> تنبيه قبل موعد الصلاة (10 دقائق)</span>
+          <input type="checkbox" class="reminder-toggle" data-reminder="prayer" checked>
+        </label>
+      </div>
+    </section>
+
+    <!-- الألعاب -->
+    <section class="page" id="page-games">
+      <div class="section-title">
+        <i class="fa-solid fa-puzzle-piece"></i>
+        <h3>الألعاب والغاز الإسلامية</h3>
+      </div>
+      <div class="game-tabs">
+        <button class="game-tab active" data-game="quiz">أسئلة دينية</button>
+        <button class="game-tab" data-game="memory">لعبة الذاكرة</button>
+        <button class="game-tab" data-game="word">لغز الكلمات</button>
+      </div>
+
+      <div class="game-panel active" id="game-quiz">
+        <div class="quiz-header">
+          <span id="quiz-score">النقاط: 0</span>
+          <span id="quiz-progress">السؤال 1 / 10</span>
+        </div>
+        <div class="quiz-card" id="quiz-card">
+          <p class="quiz-question" id="quiz-question"></p>
+          <div class="quiz-options" id="quiz-options"></div>
+          <button class="btn-primary" id="quiz-next" style="display:none">السؤال التالي <i class="fa-solid fa-arrow-left"></i></button>
+        </div>
+      </div>
+
+      <div class="game-panel" id="game-memory">
+        <p class="game-hint">اقلب البطاقات وطابق الأزواج الإسلامية</p>
+        <div class="memory-grid" id="memory-grid"></div>
+        <div class="quiz-header"><span id="memory-moves">الحركات: 0</span></div>
+      </div>
+
+      <div class="game-panel" id="game-word">
+        <p class="game-hint">أعد ترتيب الحروف لتكوين كلمة إسلامية</p>
+        <div class="word-game">
+          <div class="word-answer" id="word-answer"></div>
+          <div class="word-letters" id="word-letters"></div>
+          <div class="word-hint" id="word-hint"></div>
+          <div class="word-actions">
+            <button class="btn-outline" id="word-reset"><i class="fa-solid fa-rotate-left"></i> مسح</button>
+            <button class="btn-primary" id="word-check">تحقق</button>
+            <button class="btn-outline" id="word-new">كلمة جديدة</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-page="home"><i class="fa-solid fa-house"></i><span>الرئيسية</span></button>
+    <button class="nav-item" data-page="quran"><i class="fa-solid fa-quran"></i><span>القرآن</span></button>
+    <button class="nav-item" data-page="hadith"><i class="fa-solid fa-scroll"></i><span>الحديث</span></button>
+    <button class="nav-item" data-page="adhkar"><i class="fa-solid fa-hands-praying"></i><span>الأذكار</span></button>
+    <button class="nav-item" data-page="games"><i class="fa-solid fa-puzzle-piece"></i><span>ألعاب</span></button>
+  </nav>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
